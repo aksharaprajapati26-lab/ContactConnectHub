@@ -1,0 +1,3808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact Connect Hub</title>
+
+<style>
+
+:root{
+    --blue:#2563eb;
+    --blue-light:#eff6ff;
+    --blue-soft:#dbeafe;
+    --text:#172033;
+    --muted:#64748b;
+    --bg:#f7f9fc;
+    --white:#ffffff;
+    --border:#e5eaf2;
+    --green:#16a34a;
+    --green-light:#ecfdf5;
+    --red:#dc2626;
+    --red-light:#fef2f2;
+    --orange:#d97706;
+    --orange-light:#fff7ed;
+    --shadow:0 8px 28px rgba(15,23,42,.07);
+    --radius:18px;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Segoe UI,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+button,input,select,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    display:flex;
+    min-height:100vh;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    width:245px;
+    background:#fff;
+    border-right:1px solid var(--border);
+    padding:20px 14px;
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    z-index:20;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 10px 25px;
+}
+
+.logo-icon{
+    width:40px;
+    height:40px;
+    background:var(--blue);
+    color:#fff;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    font-weight:800;
+}
+
+.logo strong{
+    font-size:15px;
+}
+
+.logo small{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.nav{
+    display:grid;
+    gap:5px;
+}
+
+.nav a{
+    text-decoration:none;
+    color:#475569;
+    padding:12px;
+    border-radius:12px;
+    display:flex;
+    gap:11px;
+    align-items:center;
+    font-size:14px;
+}
+
+.nav a:hover,
+.nav a.active{
+    background:var(--blue-light);
+    color:var(--blue);
+    font-weight:600;
+}
+
+.nav-icon{
+    width:20px;
+    text-align:center;
+}
+
+.sidebar-bottom{
+    position:absolute;
+    left:14px;
+    right:14px;
+    bottom:18px;
+}
+
+.profile-mini{
+    padding:11px;
+    border:1px solid var(--border);
+    background:#f8fafc;
+    border-radius:14px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:var(--blue-soft);
+    color:#1d4ed8;
+    font-weight:700;
+}
+
+.avatar.sm{
+    width:35px;
+    height:35px;
+    font-size:12px;
+}
+
+.avatar.lg{
+    width:72px;
+    height:72px;
+    font-size:22px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:245px;
+    width:calc(100% - 245px);
+    padding:25px 30px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.topbar h1{
+    margin:0;
+    font-size:27px;
+}
+
+.topbar p{
+    margin:5px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.top-actions{
+    display:flex;
+    gap:9px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border:1px solid var(--border);
+    background:#fff;
+    color:#334155;
+    border-radius:11px;
+    padding:10px 14px;
+}
+
+.btn:hover{
+    background:#f8fafc;
+}
+
+.btn.primary{
+    background:var(--blue);
+    border-color:var(--blue);
+    color:#fff;
+}
+
+.btn.primary:hover{
+    background:#1d4ed8;
+}
+
+.btn.danger{
+    color:var(--red);
+}
+
+.btn.small{
+    padding:7px 10px;
+    font-size:12px;
+}
+
+
+/* =========================
+   PAGES
+========================= */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.grid{
+    display:grid;
+    gap:18px;
+}
+
+.stats{
+    grid-template-columns:repeat(4,1fr);
+}
+
+.two{
+    grid-template-columns:1.3fr .8fr;
+}
+
+.three{
+    grid-template-columns:repeat(3,1fr);
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:20px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.section-head h2{
+    margin:0;
+    font-size:17px;
+}
+
+.muted{
+    color:var(--muted);
+    font-size:13px;
+}
+
+
+/* =========================
+   STAT
+========================= */
+
+.stat{
+    display:flex;
+    justify-content:space-between;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.stat-value{
+    font-size:29px;
+    font-weight:750;
+    margin:7px 0;
+}
+
+.stat-icon{
+    width:43px;
+    height:43px;
+    background:var(--blue-light);
+    color:var(--blue);
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+}
+
+
+/* =========================
+   PILLS
+========================= */
+
+.pill{
+    display:inline-flex;
+    padding:5px 9px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:650;
+}
+
+.pill.blue{
+    background:var(--blue-light);
+    color:#1d4ed8;
+}
+
+.pill.green{
+    background:var(--green-light);
+    color:#15803d;
+}
+
+.pill.red{
+    background:var(--red-light);
+    color:#b91c1c;
+}
+
+.pill.orange{
+    background:var(--orange-light);
+    color:#c2410c;
+}
+
+
+/* =========================
+   HEALTH
+========================= */
+
+.health{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.score-ring{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background:
+    conic-gradient(
+        var(--blue) 0 76%,
+        #e8eef8 76%
+    );
+    display:grid;
+    place-items:center;
+    position:relative;
+}
+
+.score-ring::after{
+    content:"";
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:white;
+    position:absolute;
+}
+
+.score-ring span{
+    position:relative;
+    z-index:2;
+    font-size:23px;
+    font-weight:800;
+}
+
+.health-copy strong{
+    font-size:18px;
+}
+
+.health-copy p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.5;
+}
+
+
+/* =========================
+   LIST
+========================= */
+
+.list{
+    display:grid;
+    gap:10px;
+}
+
+.row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px;
+    border:1px solid #edf0f5;
+    border-radius:13px;
+}
+
+.person{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.person strong{
+    font-size:13px;
+}
+
+.person small{
+    display:block;
+    color:var(--muted);
+    margin-top:3px;
+}
+
+
+/* =========================
+   AI
+========================= */
+
+.ai-box{
+    background:linear-gradient(135deg,#eff6ff,#ffffff);
+    border:1px solid #dbeafe;
+}
+
+.ai-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.ai-icon{
+    width:40px;
+    height:40px;
+    background:var(--blue);
+    color:white;
+    border-radius:11px;
+    display:grid;
+    place-items:center;
+}
+
+.recommend{
+    background:#fff;
+    border:1px solid var(--border);
+    padding:12px;
+    border-radius:12px;
+    font-size:12px;
+    margin-top:9px;
+}
+
+
+/* =========================
+   CONTACT TOOLBAR
+========================= */
+
+.toolbar{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+    position:relative;
+}
+
+.search span{
+    position:absolute;
+    left:14px;
+    top:10px;
+    color:#94a3b8;
+}
+
+.search input{
+    width:100%;
+    padding:12px 14px 12px 39px;
+}
+
+input,select,textarea{
+    border:1px solid var(--border);
+    border-radius:11px;
+    padding:11px 12px;
+    background:#fff;
+    outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#93c5fd;
+}
+
+
+/* =========================
+   CONTACT CARDS
+========================= */
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.contact-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:18px;
+    box-shadow:var(--shadow);
+}
+
+.contact-top{
+    display:flex;
+    justify-content:space-between;
+}
+
+.favorite-star{
+    border:0;
+    background:none;
+    font-size:21px;
+    color:#cbd5e1;
+}
+
+.favorite-star.on{
+    color:#f59e0b;
+}
+
+.contact-meta{
+    display:grid;
+    gap:8px;
+    margin:14px 0;
+    font-size:12px;
+    color:var(--muted);
+}
+
+.contact-meta b{
+    color:#334155;
+}
+
+.tag{
+    display:inline-block;
+    background:#f1f5f9;
+    color:#475569;
+    padding:4px 7px;
+    border-radius:7px;
+    font-size:10px;
+    margin:3px;
+}
+
+.contact-actions{
+    display:flex;
+    gap:7px;
+    margin-top:15px;
+}
+
+.contact-actions .btn{
+    flex:1;
+}
+
+
+/* =========================
+   GRAPH
+========================= */
+
+.graph{
+    min-height:470px;
+    position:relative;
+    overflow:hidden;
+}
+
+.graph-line{
+    height:2px;
+    background:#bfdbfe;
+    position:absolute;
+    transform-origin:left center;
+}
+
+.graph svg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+}
+
+.graph .node{
+    transform:translate(-50%,-50%);
+}
+
+.graph .contact-node{
+    cursor:pointer;
+}
+
+.line1{
+    left:23%;
+    top:31%;
+    width:260px;
+    transform:rotate(22deg);
+}
+
+.line2{
+    left:50%;
+    top:32%;
+    width:220px;
+    transform:rotate(-24deg);
+}
+
+.line3{
+    left:27%;
+    top:55%;
+    width:230px;
+    transform:rotate(-18deg);
+}
+
+.line4{
+    left:52%;
+    top:57%;
+    width:210px;
+    transform:rotate(19deg);
+}
+
+.node{
+    position:absolute;
+    width:125px;
+    text-align:center;
+}
+
+.node-circle{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    margin:auto;
+    display:grid;
+    place-items:center;
+    background:var(--blue-soft);
+    color:#1d4ed8;
+    border:4px solid white;
+    box-shadow:0 4px 15px #cbd5e1;
+    font-weight:800;
+}
+
+.node strong{
+    display:block;
+    margin-top:7px;
+    font-size:12px;
+}
+
+.node small{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.you{
+    left:43%;
+    top:41%;
+}
+
+.ananya{
+    left:11%;
+    top:17%;
+}
+
+.aman{
+    right:11%;
+    top:19%;
+}
+
+.rahul{
+    left:16%;
+    bottom:13%;
+}
+
+.neha{
+    right:15%;
+    bottom:13%;
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-head{
+    display:flex;
+    gap:18px;
+    align-items:center;
+}
+
+.profile-fields{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.field label{
+    display:block;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:6px;
+}
+
+.field input{
+    width:100%;
+}
+
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline{
+    display:grid;
+    gap:15px;
+}
+
+.timeline-item{
+    display:flex;
+    gap:12px;
+}
+
+.timeline-dot{
+    width:10px;
+    height:10px;
+    background:var(--blue);
+    border-radius:50%;
+    margin-top:5px;
+    flex:none;
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+.security-box{
+    background:#f8fafc;
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:13px;
+    font-size:12px;
+}
+
+
+/* =========================
+   SWITCH
+========================= */
+
+.switch{
+    width:42px;
+    height:23px;
+    border:0;
+    border-radius:30px;
+    background:#cbd5e1;
+    padding:3px;
+}
+
+.switch i{
+    display:block;
+    width:17px;
+    height:17px;
+    background:white;
+    border-radius:50%;
+    transition:.2s;
+}
+
+.switch.on{
+    background:var(--blue);
+}
+
+.switch.on i{
+    transform:translateX(19px);
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-backdrop{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.45);
+    z-index:50;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+}
+
+.modal-backdrop.show{
+    display:flex;
+}
+
+.modal{
+    background:white;
+    border-radius:20px;
+    width:min(680px,100%);
+    max-height:90vh;
+    overflow:auto;
+    padding:23px;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.modal-head h2{
+    margin:0;
+    font-size:20px;
+}
+
+.close{
+    border:0;
+    background:#f1f5f9;
+    border-radius:9px;
+    width:34px;
+    height:34px;
+    font-size:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.form-grid .full{
+    grid-column:1/-1;
+}
+
+.form-grid label{
+    display:block;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:5px;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea{
+    width:100%;
+}
+
+.modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:9px;
+    margin-top:18px;
+}
+
+
+/* =========================
+   QR
+========================= */
+
+.qr-image{
+    width:180px;
+    height:180px;
+    display:block;
+    margin:15px auto;
+    object-fit:contain;
+}
+
+.qr-container{
+    width:320px;
+    height:320px;
+    max-width:100%;
+    margin:15px auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:white;
+    padding:10px;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.qr-container img,
+.qr-container canvas{
+    max-width:280px;
+    max-height:280px;
+}
+
+
+/* =========================
+   ASSISTANT
+========================= */
+
+.assistant{
+    display:flex;
+    flex-direction:column;
+    height:520px;
+}
+
+.chat{
+    flex:1;
+    overflow:auto;
+    padding:8px;
+}
+
+.bubble{
+    max-width:75%;
+    padding:11px 13px;
+    border-radius:14px;
+    margin:8px 0;
+    font-size:13px;
+    line-height:1.45;
+}
+
+.bubble.ai{
+    background:#f1f5f9;
+}
+
+.bubble.me{
+    background:var(--blue);
+    color:white;
+    margin-left:auto;
+}
+
+.chat-input{
+    display:flex;
+    gap:8px;
+    border-top:1px solid var(--border);
+    padding-top:12px;
+}
+
+.chat-input input{
+    flex:1;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    background:#172033;
+    color:white;
+    padding:12px 16px;
+    border-radius:11px;
+    display:none;
+    z-index:200;
+    font-size:13px;
+}
+
+.toast.show{
+    display:block;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-screen{
+    position:fixed;
+    inset:0;
+    background:#f7f9fc;
+    display:none;
+    place-items:center;
+    z-index:100;
+}
+
+.login-screen.show{
+    display:grid;
+}
+
+.login-card{
+    width:min(420px,92%);
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:30px;
+    box-shadow:var(--shadow);
+}
+
+.login-card h1{
+    margin:0 0 6px;
+}
+
+.login-card p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.login-card input{
+    width:100%;
+    margin:7px 0;
+}
+
+.login-card .btn{
+    width:100%;
+    margin-top:9px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1050px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .two{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:800px){
+
+    .sidebar{
+        width:70px;
+        padding:15px 9px;
+    }
+
+    .logo div:not(.logo-icon),
+    .nav a span:not(.nav-icon),
+    .sidebar-bottom{
+        display:none;
+    }
+
+    .logo{
+        padding-bottom:18px;
+    }
+
+    .nav a{
+        justify-content:center;
+    }
+
+    .main{
+        margin-left:70px;
+        width:calc(100% - 70px);
+        padding:20px 16px;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid,
+    .profile-fields{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid .full{
+        grid-column:auto;
+    }
+
+}
+
+@media(max-width:560px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .top-actions{
+        display:none;
+    }
+
+    .health{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .graph{
+        min-height:400px;
+    }
+
+    .qr-container{
+        width:100%;
+        height:auto;
+        min-height:300px;
+    }
+
+}
+
+</style>
+
+
+<!-- QR CODE LIBRARY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+    <div class="logo-icon">
+        CH
+    </div>
+
+    <div>
+        <strong>Contact Connect Hub</strong>
+        <small>Relationship Manager</small>
+    </div>
+
+</div>
+
+
+<nav class="nav">
+
+<a href="#"
+class="active"
+data-page="dashboard"
+onclick="showPage('dashboard');return false;">
+
+<span class="nav-icon">⌂</span>
+<span>Dashboard</span>
+
+</a>
+
+
+<a href="#"
+data-page="contacts"
+onclick="showPage('contacts');return false;">
+
+<span class="nav-icon">♙</span>
+<span>Contacts</span>
+
+</a>
+
+
+<a href="#"
+data-page="favorites"
+onclick="showPage('favorites');return false;">
+
+<span class="nav-icon">★</span>
+<span>Favorites</span>
+
+</a>
+
+
+<a href="#"
+data-page="groups"
+onclick="showPage('groups');return false;">
+
+<span class="nav-icon">▤</span>
+<span>Groups</span>
+
+</a>
+
+
+<a href="#"
+data-page="reminders"
+onclick="showPage('reminders');return false;">
+
+<span class="nav-icon">◷</span>
+<span>Reminders</span>
+
+</a>
+
+
+<a href="#"
+data-page="graph"
+onclick="showPage('graph');return false;">
+
+<span class="nav-icon">⌁</span>
+<span>Relationship Graph</span>
+
+</a>
+
+
+<a href="#"
+data-page="insights"
+onclick="showPage('insights');return false;">
+
+<span class="nav-icon">✦</span>
+<span>AI Insights</span>
+
+</a>
+
+
+<a href="#"
+data-page="assistant"
+onclick="showPage('assistant');return false;">
+
+<span class="nav-icon">☁</span>
+<span>AI Assistant</span>
+
+</a>
+
+
+<a href="#"
+data-page="profile"
+onclick="showPage('profile');return false;">
+
+<span class="nav-icon">◎</span>
+<span>My Profile</span>
+
+</a>
+
+
+<a href="#"
+data-page="settings"
+onclick="showPage('settings');return false;">
+
+<span class="nav-icon">⚙</span>
+<span>Settings</span>
+
+</a>
+
+</nav>
+
+
+<div class="sidebar-bottom">
+
+<div class="profile-mini">
+
+<div class="avatar sm">
+AP
+</div>
+
+<div>
+
+<strong
+id="sidebarProfileName"
+style="font-size:12px">
+Akshara Prajapati
+</strong>
+
+<small
+style="display:block;color:#64748b;font-size:10px">
+My account
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</aside>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+
+<header class="topbar">
+
+<div>
+
+<h1 id="pageTitle">
+Dashboard
+</h1>
+
+<p id="pageSubtitle">
+Your contacts, relationships and follow-ups in one place.
+</p>
+
+</div>
+
+
+<div class="top-actions">
+
+<button class="btn"
+onclick="openAssistant()">
+✦ Ask AI
+</button>
+
+
+<button class="btn primary"
+onclick="openContactModal()">
++ Add contact
+</button>
+
+</div>
+
+</header>
+
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section id="dashboard" class="page active">
+
+
+<div class="grid stats">
+
+
+<div class="card stat">
+
+<div>
+
+<div class="stat-label">
+Total contacts
+</div>
+
+<div class="stat-value"
+id="statContacts">
+8
+</div>
+
+<span class="pill blue">
+Organized
+</span>
+
+</div>
+
+<div class="stat-icon">
+♙
+</div>
+
+</div>
+
+
+
+<div class="card stat">
+
+<div>
+
+<div class="stat-label">
+Favorite contacts
+</div>
+
+<div class="stat-value"
+id="statFav">
+3
+</div>
+
+<span class="pill orange">
+Important
+</span>
+
+</div>
+
+<div class="stat-icon">
+★
+</div>
+
+</div>
+
+
+
+<div class="card stat">
+
+<div>
+
+<div class="stat-label">
+Relationship health
+</div>
+
+<div class="stat-value" id="statHealth">
+0%
+</div>
+
+<span class="pill green">
+Strong
+</span>
+
+</div>
+
+<div class="stat-icon">
+♥
+</div>
+
+</div>
+
+
+
+<div class="card stat">
+
+<div>
+
+<div class="stat-label">
+High-risk relationships
+</div>
+
+<div class="stat-value" id="statRisk">
+0
+</div>
+
+<span class="pill red">
+Needs attention
+</span>
+
+</div>
+
+<div class="stat-icon">
+!
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="grid two"
+style="margin-top:18px">
+
+
+<div class="card">
+
+<div class="section-head">
+
+<h2>
+Relationship health
+</h2>
+
+<span class="muted">
+AI analysis
+</span>
+
+</div>
+
+
+<div class="health">
+
+<div class="score-ring">
+<span id="healthScore">0</span>
+</div>
+
+
+<div class="health-copy">
+
+<strong>
+Strong connections
+</strong>
+
+<p>
+Relationship score calculated from your saved contact data.
+</p>
+
+<button class="btn small"
+onclick="showPage('insights')">
+View AI insights
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="card ai-box">
+
+<div class="ai-title">
+
+<div class="ai-icon">
+✦
+</div>
+
+<div>
+
+<h2 style="margin:0;font-size:17px">
+AI recommendations
+</h2>
+
+<span class="muted">
+3 suggestions
+</span>
+
+</div>
+
+</div>
+
+
+<div id="aiRecommendations">
+<div class="recommend">
+Loading recommendations...
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="grid two"
+style="margin-top:18px">
+
+
+<div class="card">
+
+<div class="section-head">
+
+<h2>
+Recent interactions
+</h2>
+
+<button class="btn small"
+onclick="showPage('contacts')">
+View contacts
+</button>
+
+</div>
+
+
+<div class="list" id="recentContactsList">
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="section-head">
+
+<h2>
+Upcoming reminders
+</h2>
+
+<button class="btn small"
+onclick="showPage('reminders')">
+View all
+</button>
+
+</div>
+
+
+<div class="list" id="upcomingRemindersList">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     CONTACTS
+========================= -->
+
+<section id="contacts" class="page">
+
+
+<div class="toolbar">
+
+<div class="search">
+
+<span>⌕</span>
+
+<input
+id="searchInput"
+oninput="renderContacts()"
+placeholder="Search name, phone, email or category...">
+
+</div>
+
+
+<select
+id="categoryFilter"
+onchange="renderContacts()">
+
+<option value="">
+All categories
+</option>
+
+<option>
+Friend
+</option>
+
+<option>
+Family
+</option>
+
+<option>
+College
+</option>
+
+<option>
+Work
+</option>
+
+</select>
+
+
+<select
+id="sortSelect"
+onchange="renderContacts()">
+
+<option value="name">
+Sort A–Z
+</option>
+
+<option value="score">
+Relationship score
+</option>
+
+</select>
+
+
+<button class="btn"
+onclick="exportContactsCSV()">
+⬇ Export CSV
+</button>
+
+<button class="btn"
+onclick="document.getElementById('csvImportInput').click()">
+⬆ Import CSV
+</button>
+
+<input
+type="file"
+id="csvImportInput"
+accept=".csv"
+style="display:none"
+onchange="importContactsCSV(event)">
+
+<button class="btn primary"
+onclick="openContactModal()">
++ Add contact
+</button>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="section-head">
+
+<div>
+
+<h2>
+All contacts
+</h2>
+
+<span class="muted"
+id="contactCount">
+</span>
+
+</div>
+
+</div>
+
+
+<div class="contact-grid"
+id="contactsGrid">
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     FAVORITES
+========================= -->
+
+<section id="favorites" class="page">
+
+
+<div class="card">
+
+<div class="section-head">
+
+<div>
+
+<h2>
+Favorite Contacts
+</h2>
+
+<span class="muted">
+People you want quick access to.
+</span>
+
+</div>
+
+<span class="pill orange"
+id="favCount">
+</span>
+
+</div>
+
+
+<div class="toolbar">
+
+<select
+id="favCategory"
+onchange="renderFavorites()">
+
+<option value="">
+All categories
+</option>
+
+<option>
+Friend
+</option>
+
+<option>
+Family
+</option>
+
+<option>
+College
+</option>
+
+<option>
+Work
+</option>
+
+</select>
+
+</div>
+
+
+<div class="contact-grid"
+id="favoritesGrid">
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     REMINDERS
+========================= -->
+
+<section id="groups" class="page">
+
+
+<div class="card" style="margin-bottom:18px">
+
+<div class="section-head">
+
+<div>
+
+<h2>
+Groups
+</h2>
+
+<span class="muted">
+Organize contacts into custom groups.
+</span>
+
+</div>
+
+<button class="btn primary"
+onclick="createGroup()">
++ New group
+</button>
+
+</div>
+
+<div class="list" id="groupsList">
+</div>
+
+</div>
+
+
+<div class="card" id="groupDetailCard" style="display:none">
+
+<div class="section-head">
+
+<div>
+<h2 id="groupDetailTitle">Group</h2>
+<span class="muted" id="groupDetailSubtitle"></span>
+</div>
+
+<div style="display:flex;gap:8px">
+
+<select id="groupAddContactSelect">
+<option value="">Add contact...</option>
+</select>
+
+<button class="btn small"
+onclick="addSelectedContactToGroup()">
+Add
+</button>
+
+<button class="btn small danger"
+onclick="deleteCurrentGroup()">
+Delete group
+</button>
+
+</div>
+
+</div>
+
+<div class="list" id="groupDetailContacts">
+</div>
+
+</div>
+
+</section>
+
+
+
+<section id="reminders" class="page">
+
+
+<div class="card" style="margin-bottom:18px">
+
+<div class="section-head">
+
+<div>
+
+<h2>
+🎂 Upcoming birthdays
+</h2>
+
+<span class="muted">
+Next 30 days, based on saved contact birthdays.
+</span>
+
+</div>
+
+</div>
+
+<div class="list" id="upcomingBirthdaysList">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="section-head">
+
+<div>
+
+<h2>
+Reminders & Follow-ups
+</h2>
+
+<span class="muted">
+Never miss an important follow-up.
+</span>
+
+</div>
+
+<button class="btn primary"
+onclick="openReminderModal()">
++ Add reminder
+</button>
+
+</div>
+
+
+<div class="list"
+id="remindersList">
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     RELATIONSHIP GRAPH
+========================= -->
+
+<section id="graph" class="page">
+
+
+<div class="grid two">
+
+
+<div class="card graph">
+
+<div class="section-head">
+
+<h2>
+Relationship Graph
+</h2>
+
+<span class="pill blue">
+5 connections
+</span>
+
+</div>
+
+
+<div class="graph-line line1"></div>
+<div class="graph-line line2"></div>
+<div class="graph-line line3"></div>
+<div class="graph-line line4"></div>
+
+
+<div class="node you">
+
+<div class="node-circle">
+YOU
+</div>
+
+<strong>
+You
+</strong>
+
+<small>
+Profile
+</small>
+
+</div>
+
+
+<div class="node ananya">
+
+<div class="node-circle">
+AS
+</div>
+
+<strong>
+Ananya Sharma
+</strong>
+
+<small>
+Strong
+</small>
+
+</div>
+
+
+<div class="node aman">
+
+<div class="node-circle">
+AP
+</div>
+
+<strong>
+Aman Patel
+</strong>
+
+<small>
+Good
+</small>
+
+</div>
+
+
+<div class="node rahul">
+
+<div class="node-circle">
+RS
+</div>
+
+<strong>
+Rahul Sharma
+</strong>
+
+<small>
+Strong
+</small>
+
+</div>
+
+
+<div class="node neha">
+
+<div class="node-circle">
+NV
+</div>
+
+<strong>
+Neha Verma
+</strong>
+
+<small>
+Needs attention
+</small>
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="section-head">
+
+<h2>
+Connection summary
+</h2>
+
+</div>
+
+
+<div class="list">
+
+
+<div class="row">
+<span>Strong connection</span>
+<span class="pill green">3</span>
+</div>
+
+
+<div class="row">
+<span>Good connection</span>
+<span class="pill blue">2</span>
+</div>
+
+
+<div class="row">
+<span>Needs attention</span>
+<span class="pill orange">2</span>
+</div>
+
+
+<div class="row">
+<span>High risk</span>
+<span class="pill red">1</span>
+</div>
+
+
+</div>
+
+
+<div class="security-box"
+style="margin-top:20px">
+
+Relationship health is based on interaction frequency,
+recency and follow-up activity. It is not a financial score.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     AI INSIGHTS
+========================= -->
+
+<section id="insights" class="page">
+
+
+<div class="grid stats">
+
+
+<div class="card stat">
+
+<div>
+
+<div class="stat-label">
+Average relationship score
+</div>
+
+<div class="stat-value">
+76
+</div>
+
+<span class="pill green">
+Healthy
+</span>
+
+</div>
+
+<div class="stat-icon">
+♥
+</div>
+
+</div>
+
+
+
+<div class="card stat">
+
+<div>
+
+<div class="stat-label">
+Follow-up opportunities
+</div>
+
+<div class="stat-value">
+4
+</div>
+
+<span class="pill orange">
+This week
+</span>
+
+</div>
+
+<div class="stat-icon">
+↗
+</div>
+
+</div>
+
+
+
+<div class="card stat">
+
+<div>
+
+<div class="stat-label">
+High-risk relationships
+</div>
+
+<div class="stat-value">
+2
+</div>
+
+<span class="pill red">
+Review
+</span>
+
+</div>
+
+<div class="stat-icon">
+!
+</div>
+
+</div>
+
+
+
+<div class="card stat">
+
+<div>
+
+<div class="stat-label">
+Duplicate matches
+</div>
+
+<div class="stat-value">
+1
+</div>
+
+<span class="pill blue">
+Detected
+</span>
+
+</div>
+
+<div class="stat-icon">
+◈
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="grid two"
+style="margin-top:18px">
+
+
+<div class="card">
+
+<div class="section-head">
+
+<h2>
+Relationship score
+</h2>
+
+<span class="muted">
+AI/ML analysis
+</span>
+
+</div>
+
+
+<div class="list">
+
+
+<div class="row">
+
+<div class="person">
+
+<div class="avatar sm">
+AS
+</div>
+
+<span>
+
+<strong>
+Ananya Sharma
+</strong>
+
+<small>
+Friend · 91/100
+</small>
+
+</span>
+
+</div>
+
+<span class="pill green">
+Strong
+</span>
+
+</div>
+
+
+
+<div class="row">
+
+<div class="person">
+
+<div class="avatar sm">
+AP
+</div>
+
+<span>
+
+<strong>
+Aman Patel
+</strong>
+
+<small>
+College · 78/100
+</small>
+
+</span>
+
+</div>
+
+<span class="pill blue">
+Good
+</span>
+
+</div>
+
+
+
+<div class="row">
+
+<div class="person">
+
+<div class="avatar sm">
+NV
+</div>
+
+<span>
+
+<strong>
+Neha Verma
+</strong>
+
+<small>
+Work · 42/100
+</small>
+
+</span>
+
+</div>
+
+<span class="pill red">
+At risk
+</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div class="card ai-box">
+
+<div class="ai-title">
+
+<div class="ai-icon">
+✦
+</div>
+
+<div>
+
+<h2 style="margin:0;font-size:17px">
+Smart follow-up suggestions
+</h2>
+
+<span class="muted">
+Personalized recommendations
+</span>
+
+</div>
+
+</div>
+
+
+<div class="recommend">
+Call Ananya — last interaction was 12 days ago.
+</div>
+
+
+<div class="recommend">
+Send a message to Neha — activity has dropped recently.
+</div>
+
+
+<div class="recommend">
+Check Rahul's birthday reminder.
+</div>
+
+
+<div class="recommend">
+Review one possible duplicate contact.
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="card"
+style="margin-top:18px">
+
+<div class="section-head">
+
+<h2>
+Number Safety & Duplicate Detection
+</h2>
+
+</div>
+
+
+<div class="grid three">
+
+
+<div class="security-box">
+
+<b>
+✓ Normal number
+</b>
+
+<br>
+
+<span class="muted">
+No suspicious pattern detected.
+</span>
+
+</div>
+
+
+
+<div class="security-box">
+
+<b>
+⚠ Possible duplicate
+</b>
+
+<br>
+
+<span class="muted">
+Similar phone/email found.
+</span>
+
+</div>
+
+
+
+<div class="security-box">
+
+<b>
+⚠ Suspicious/spam risk
+</b>
+
+<br>
+
+<span class="muted">
+Review before sharing or saving.
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     AI ASSISTANT
+========================= -->
+
+<section id="assistant" class="page">
+
+
+<div class="card assistant">
+
+
+<div class="section-head">
+
+<div class="ai-title">
+
+<div class="ai-icon">
+✦
+</div>
+
+<div>
+
+<h2 style="margin:0">
+Contact AI Assistant
+</h2>
+
+<span class="muted">
+Ask naturally about your contacts.
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<p class="muted" style="margin:0 0 12px;font-size:12px">
+Messages share contact notes, reminders and interaction details with the configured AI provider.
+</p>
+
+
+<div class="chat"
+id="chat">
+
+<div class="bubble ai">
+
+Hi Akshara! Ask me things like
+“Who haven't I contacted recently?”
+or “Show my strongest connections.”
+
+</div>
+
+
+<div class="bubble ai">
+
+I can suggest follow-ups, summarize interactions
+and help find duplicate or risky contacts.
+
+</div>
+
+</div>
+
+
+<div class="chat-input">
+
+<input
+id="chatInput"
+placeholder="Ask: who needs a follow-up?"
+onkeydown="if(event.key==='Enter')sendChat()">
+
+
+<button class="btn primary"
+onclick="sendChat()">
+Send
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section id="profile" class="page">
+
+
+<div class="grid two">
+
+
+<div class="card">
+
+
+<div class="profile-head">
+
+<div class="avatar lg">
+AP
+</div>
+
+
+<div>
+
+<h2
+id="profileHeading"
+style="margin:0">
+Akshara Prajapati
+</h2>
+
+<span class="muted">
+My Profile
+</span>
+
+</div>
+
+</div>
+
+
+
+<div class="profile-fields"
+style="margin-top:25px">
+
+
+<div class="field">
+
+<label>
+Full name
+</label>
+
+<input
+id="profileName"
+value="Akshara Prajapati">
+
+</div>
+
+
+
+<div class="field">
+
+<label>
+Email
+</label>
+
+<input
+id="profileEmail"
+type="email"
+value="akshara@example.com">
+
+</div>
+
+
+
+<div class="field">
+
+<label>
+Phone
+</label>
+
+<input
+id="profilePhone"
+value="+91 98XXXXXX21">
+
+</div>
+
+
+
+<div class="field">
+
+<label>
+Category
+</label>
+
+<input
+id="profileCategory"
+value="Personal">
+
+</div>
+
+</div>
+
+
+
+<button class="btn primary"
+style="margin-top:18px"
+onclick="saveProfile()">
+
+Save profile
+
+</button>
+
+</div>
+
+
+
+<!-- PROFILE QR -->
+
+<div class="card">
+
+
+<div class="section-head">
+
+<h2>
+My Profile QR
+</h2>
+
+
+<button class="btn small"
+onclick="openShareModal()">
+
+Selective sharing
+
+</button>
+
+</div>
+
+
+<div
+id="profileQR"
+class="qr-container">
+</div>
+
+
+<p class="muted"
+style="text-align:center">
+
+Scan this QR to add my profile as a contact.
+
+</p>
+
+
+<button class="btn"
+style="width:100%"
+onclick="downloadProfileVCard()">
+
+Download profile .vcf
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<section id="settings" class="page">
+
+
+<div class="grid two">
+
+
+<div class="card">
+
+<div class="section-head">
+
+<h2>
+Notifications
+</h2>
+
+</div>
+
+
+<div class="list">
+
+
+<div class="row">
+
+<span>
+
+<strong>
+Reminder notifications
+</strong>
+
+<small
+style="display:block;color:#64748b">
+Get alerts for follow-ups.
+</small>
+
+</span>
+
+
+<button
+class="switch"
+data-setting="reminderNotifications"
+aria-pressed="false"
+onclick="toggleSwitch(this)">
+
+<i></i>
+
+</button>
+
+</div>
+
+
+
+<div class="row">
+
+<span>
+
+<strong>
+Birthday reminders
+</strong>
+
+<small
+style="display:block;color:#64748b">
+Remember important dates.
+</small>
+
+</span>
+
+
+<button
+class="switch on"
+data-setting="birthdayReminders"
+aria-pressed="true"
+onclick="toggleSwitch(this)">
+
+<i></i>
+
+</button>
+
+</div>
+
+
+
+<div class="row">
+
+<span>
+
+<strong>
+AI recommendations
+</strong>
+
+<small
+style="display:block;color:#64748b">
+Receive smart suggestions.
+</small>
+
+</span>
+
+
+<button
+class="switch on"
+data-setting="aiRecommendations"
+aria-pressed="true"
+onclick="toggleSwitch(this)">
+
+<i></i>
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="section-head">
+
+<h2>
+Privacy & Security
+</h2>
+
+</div>
+
+
+<div class="list">
+
+
+<div class="row">
+
+<span>
+
+<strong>
+Selective sharing
+</strong>
+
+<small
+style="display:block;color:#64748b">
+Choose which fields are shared.
+</small>
+
+</span>
+
+
+<button
+class="switch on"
+data-setting="selectiveSharing"
+aria-pressed="true"
+onclick="toggleSwitch(this)">
+
+<i></i>
+
+</button>
+
+</div>
+
+
+
+<div class="row">
+
+<span>
+
+<strong>
+OTP verification
+</strong>
+
+<small
+style="display:block;color:#64748b">
+Requires an authentication provider.
+</small>
+
+</span>
+
+
+<button
+class="switch"
+data-setting="otpVerification"
+aria-pressed="false"
+onclick="toggleSwitch(this)">
+
+<i></i>
+
+</button>
+
+</div>
+
+
+
+<div class="row">
+
+<span>
+
+<strong>
+Suspicious number warnings
+</strong>
+
+<small
+style="display:block;color:#64748b">
+Warn before risky contacts are saved.
+</small>
+
+</span>
+
+
+<button
+class="switch on"
+data-setting="suspiciousWarnings"
+aria-pressed="true"
+onclick="toggleSwitch(this)">
+
+<i></i>
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="card"
+style="margin-top:18px">
+
+
+<div class="section-head">
+
+<h2>
+Account
+</h2>
+
+</div>
+
+
+<button class="btn"
+onclick="openLogin()">
+
+Login / Register / OTP
+
+</button>
+
+
+<button class="btn danger"
+onclick="logout()">
+
+Log out
+
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+
+<!-- =========================
+     ADD / EDIT CONTACT MODAL
+========================= -->
+
+<div class="modal-backdrop"
+id="contactModal">
+
+<div class="modal">
+
+
+<div class="modal-head">
+
+<h2 id="contactModalTitle">
+Add Contact
+</h2>
+
+
+<button class="close"
+onclick="closeModal('contactModal')">
+×
+</button>
+
+</div>
+
+
+
+<form
+id="contactForm"
+onsubmit="saveContact(event)">
+
+
+<input
+type="hidden"
+id="editId">
+
+
+<div class="form-grid">
+
+
+<div>
+
+<label>
+Name *
+</label>
+
+<input
+id="fName"
+required
+placeholder="Full name">
+
+</div>
+
+
+
+<div>
+
+<label>
+Phone *
+</label>
+
+<input
+id="fPhone"
+required
+placeholder="+91...">
+
+</div>
+
+
+
+<div>
+
+<label>
+Email
+</label>
+
+<input
+id="fEmail"
+type="email"
+placeholder="name@email.com">
+
+</div>
+
+
+
+<div>
+
+<label>
+Category *
+</label>
+
+<select
+id="fCategory"
+required>
+
+<option>
+Friend
+</option>
+
+<option>
+Family
+</option>
+
+<option>
+College
+</option>
+
+<option>
+Work
+</option>
+
+</select>
+
+</div>
+
+
+
+<div>
+
+<label>
+Company
+</label>
+
+<input
+id="fCompany"
+placeholder="Company">
+
+</div>
+
+
+
+<div>
+
+<label>
+Job title
+</label>
+
+<input
+id="fJobTitle"
+placeholder="Job title">
+
+</div>
+
+
+
+<div>
+
+<label>
+Birthday
+</label>
+
+<input
+id="fBirthday"
+type="date">
+
+</div>
+
+
+
+<div>
+
+<label>
+Website
+</label>
+
+<input
+id="fWebsite"
+type="url"
+placeholder="https://...">
+
+</div>
+
+
+
+<div class="full">
+
+<label>
+Address
+</label>
+
+<input
+id="fAddress"
+placeholder="Address">
+
+</div>
+
+
+
+<div>
+
+<label>
+Instagram
+</label>
+
+<input
+id="fInstagram"
+placeholder="@handle">
+
+</div>
+
+
+
+<div>
+
+<label>
+LinkedIn
+</label>
+
+<input
+id="fLinkedin"
+placeholder="linkedin.com/in/...">
+
+</div>
+
+
+
+<div>
+
+<label>
+WhatsApp
+</label>
+
+<input
+id="fWhatsapp"
+placeholder="+91...">
+
+</div>
+
+
+
+<div class="full">
+
+<label>
+Tags
+</label>
+
+<input
+id="fTags"
+placeholder="college, project, close friend">
+
+</div>
+
+
+
+<div class="full">
+
+<label>
+Notes
+</label>
+
+<textarea
+id="fNotes"
+rows="3"
+placeholder="Optional notes"></textarea>
+
+</div>
+
+
+
+<div
+class="full security-box"
+id="contactWarning">
+
+✓ Phone will be checked for duplicate/suspicious patterns.
+
+</div>
+
+</div>
+
+
+
+<div class="modal-footer">
+
+<button
+type="button"
+class="btn"
+onclick="closeModal('contactModal')">
+
+Cancel
+
+</button>
+
+
+<button
+class="btn primary">
+
+Save contact
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     DETAILS MODAL
+========================= -->
+
+<div class="modal-backdrop"
+id="detailsModal">
+
+<div class="modal">
+
+
+<div class="modal-head">
+
+<h2>
+Contact details
+</h2>
+
+
+<button
+class="close"
+onclick="closeModal('detailsModal')">
+
+×
+
+</button>
+
+</div>
+
+
+<div id="detailsContent">
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     SHARE MODAL
+========================= -->
+
+<div class="modal-backdrop"
+id="shareModal">
+
+<div class="modal">
+
+
+<div class="modal-head">
+
+<h2>
+Selective QR / vCard Sharing
+</h2>
+
+
+<button
+class="close"
+onclick="closeModal('shareModal')">
+
+×
+
+</button>
+
+</div>
+
+
+<p class="muted">
+Choose exactly what you want to share.
+</p>
+
+
+<div class="form-grid">
+
+
+<label>
+
+<input
+type="checkbox"
+class="share-field"
+value="name"
+checked>
+
+Name
+
+</label>
+
+
+
+<label>
+
+<input
+type="checkbox"
+class="share-field"
+value="phone"
+checked>
+
+Phone
+
+</label>
+
+
+
+<label>
+
+<input
+type="checkbox"
+class="share-field"
+value="email">
+
+Email
+
+</label>
+
+
+
+<label>
+
+<input
+type="checkbox"
+class="share-field"
+value="category">
+
+Category
+
+</label>
+
+
+
+<label>
+
+<input
+type="checkbox"
+class="share-field"
+value="notes">
+
+Notes
+
+</label>
+
+
+
+<label>
+
+<input
+type="checkbox"
+class="share-field"
+value="tags">
+
+Tags
+
+</label>
+
+</div>
+
+
+<div
+id="generatedQR"
+class="qr-container">
+</div>
+
+
+<div class="modal-footer">
+
+
+<button
+class="btn"
+onclick="downloadVCard()">
+
+Download .vcf
+
+</button>
+
+
+<button
+class="btn primary"
+onclick="generateQR()">
+
+Generate QR
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     CUSTOM CONFIRM / PROMPT MODALS
+========================= -->
+
+<div class="modal-backdrop"
+id="confirmModal">
+
+<div class="modal">
+
+<div class="modal-head">
+
+<h2 id="confirmModalTitle">
+Confirm
+</h2>
+
+<button class="close"
+onclick="closeModal('confirmModal'); resolvePendingDialog(false);">
+×
+</button>
+
+</div>
+
+<p id="confirmModalMessage" class="muted"></p>
+
+<div class="modal-footer">
+
+<button type="button"
+class="btn"
+onclick="closeModal('confirmModal'); resolvePendingDialog(false);">
+Cancel
+</button>
+
+<button type="button"
+class="btn primary"
+onclick="closeModal('confirmModal'); resolvePendingDialog(true);">
+Confirm
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="modal-backdrop"
+id="promptModal">
+
+<div class="modal">
+
+<div class="modal-head">
+
+<h2 id="promptModalTitle">
+Enter value
+</h2>
+
+<button class="close"
+onclick="closeModal('promptModal'); resolvePendingDialog(null);">
+×
+</button>
+
+</div>
+
+<div class="form-grid">
+
+<div class="full">
+
+<label id="promptModalLabel">
+Value
+</label>
+
+<input id="promptModalInput"
+placeholder="Type here">
+
+</div>
+
+</div>
+
+<div class="modal-footer">
+
+<button type="button"
+class="btn"
+onclick="closeModal('promptModal'); resolvePendingDialog(null);">
+Cancel
+</button>
+
+<button type="button"
+class="btn primary"
+onclick="submitPromptModal()">
+Save
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     REMINDER MODAL
+========================= -->
+
+<div class="modal-backdrop"
+id="reminderModal">
+
+<div class="modal">
+
+
+<div class="modal-head">
+
+<h2>
+Add Reminder
+</h2>
+
+
+<button
+class="close"
+onclick="closeModal('reminderModal')">
+
+×
+
+</button>
+
+</div>
+
+
+<div class="form-grid">
+
+
+<div class="full">
+
+<label>
+Reminder
+</label>
+
+<input
+id="rText"
+placeholder="Follow up with a contact">
+
+</div>
+
+
+
+<div class="full">
+
+<label>
+Contact
+</label>
+
+<select id="rContact">
+<option value="">Select contact</option>
+</select>
+
+</div>
+
+
+
+<div>
+
+<label>
+Date
+</label>
+
+<input
+id="rDate"
+type="date">
+
+</div>
+
+
+
+<div>
+
+<label>
+Time
+</label>
+
+<input
+id="rTime"
+type="time">
+
+</div>
+
+
+
+<div>
+
+<label>
+Type
+</label>
+
+<select id="rType">
+
+<option>
+Follow-up
+</option>
+
+<option>
+Call
+</option>
+
+<option>
+Birthday
+</option>
+
+<option>
+Meeting
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+
+<div class="modal-footer">
+
+
+<button
+class="btn"
+onclick="closeModal('reminderModal')">
+
+Cancel
+
+</button>
+
+
+<button
+class="btn primary"
+onclick="saveReminder()">
+
+Save reminder
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     LOGIN / OTP
+========================= -->
+
+<div
+class="login-screen"
+id="loginScreen">
+
+
+<div class="login-card">
+
+
+<div
+class="logo"
+style="padding:0 0 15px">
+
+
+<div class="logo-icon">
+CH
+</div>
+
+
+<div>
+
+<strong>
+Contact Connect Hub
+</strong>
+
+<small>
+Secure account
+</small>
+
+</div>
+
+</div>
+
+
+<h1 id="loginTitle">
+Welcome back
+</h1>
+
+
+<p id="loginText">
+Login to securely manage your contacts.
+</p>
+
+
+<input
+id="loginEmail"
+placeholder="Email">
+
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password">
+
+
+<button
+class="btn primary"
+onclick="loginDemo()">
+
+Login
+
+</button>
+
+
+<button
+class="btn"
+onclick="showToast('Account creation requires an authentication provider.')">
+
+Create account
+
+</button>
+
+
+<button
+class="btn"
+onclick="showToast('OTP verification requires an authentication provider.')">
+
+Verify with OTP
+
+</button>
+
+
+<button
+class="btn"
+onclick="closeLogin()">
+
+Back to app
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<div
+class="toast"
+id="toast">
+</div>
+
+
+
+<script src="app.js?v=3"></script>
+</body>
+</html>
