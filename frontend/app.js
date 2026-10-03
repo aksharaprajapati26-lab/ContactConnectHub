@@ -2,11 +2,7 @@
 // =====================================================
 // CONTACT CONNECT HUB - FRONTEND JAVASCRIPT
 // =====================================================
-
-const API_BASE =
-    window.location.port === "4000"
-        ? "/api"
-        : "http://localhost:4000/api";
+const API_BASE = "/api";
 
 let contacts = [];
 let reminders = [];
