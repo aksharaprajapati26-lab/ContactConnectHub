@@ -1,6 +1,7 @@
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 
+// SQLite database file
 const dbPath = path.join(__dirname, "contacthub.db");
 
 const db = new sqlite3.Database(dbPath, (err) => {
@@ -13,7 +14,10 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 db.serialize(() => {
 
+    // =========================
     // CONTACTS
+    // =========================
+
     db.run(`
         CREATE TABLE IF NOT EXISTS contacts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,18 +40,17 @@ db.serialize(() => {
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
-    `);
-
-    db.run(
-        "ALTER TABLE contacts ADD COLUMN tags TEXT NOT NULL DEFAULT '[]'",
-        (err) => {
-            if (err && !err.message.includes("duplicate column name: tags")) {
-                console.error("Contacts tags migration failed:", err.message);
-            }
+    `, (err) => {
+        if (err) {
+            console.error("Contacts table error:", err.message);
         }
-    );
+    });
 
+
+    // =========================
     // PROFILE
+    // =========================
+
     db.run(`
         CREATE TABLE IF NOT EXISTS profile (
             id INTEGER PRIMARY KEY,
@@ -64,18 +67,17 @@ db.serialize(() => {
             whatsapp TEXT,
             bio TEXT
         )
-    `);
-
-    db.run(
-        "ALTER TABLE profile ADD COLUMN category TEXT DEFAULT 'Personal'",
-        (err) => {
-            if (err && !err.message.includes("duplicate column name: category")) {
-                console.error("Profile category migration failed:", err.message);
-            }
+    `, (err) => {
+        if (err) {
+            console.error("Profile table error:", err.message);
         }
-    );
+    });
 
+
+    // =========================
     // REMINDERS
+    // =========================
+
     db.run(`
         CREATE TABLE IF NOT EXISTS reminders (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -86,11 +88,21 @@ db.serialize(() => {
             notes TEXT,
             completed INTEGER DEFAULT 0,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(contact_id) REFERENCES contacts(id) ON DELETE CASCADE
+            FOREIGN KEY(contact_id)
+                REFERENCES contacts(id)
+                ON DELETE CASCADE
         )
-    `);
+    `, (err) => {
+        if (err) {
+            console.error("Reminders table error:", err.message);
+        }
+    });
 
+
+    // =========================
     // INTERACTIONS
+    // =========================
+
     db.run(`
         CREATE TABLE IF NOT EXISTS interactions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -98,28 +110,55 @@ db.serialize(() => {
             type TEXT NOT NULL,
             description TEXT,
             interaction_date TEXT DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(contact_id) REFERENCES contacts(id) ON DELETE CASCADE
+            FOREIGN KEY(contact_id)
+                REFERENCES contacts(id)
+                ON DELETE CASCADE
         )
-    `);
+    `, (err) => {
+        if (err) {
+            console.error("Interactions table error:", err.message);
+        }
+    });
 
+
+    // =========================
     // GROUPS
+    // =========================
+
     db.run(`
         CREATE TABLE IF NOT EXISTS groups_table (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL UNIQUE
         )
-    `);
+    `, (err) => {
+        if (err) {
+            console.error("Groups table error:", err.message);
+        }
+    });
 
+
+    // =========================
     // CONTACT-GROUP RELATION
+    // =========================
+
     db.run(`
         CREATE TABLE IF NOT EXISTS contact_groups (
             contact_id INTEGER,
             group_id INTEGER,
             PRIMARY KEY(contact_id, group_id),
-            FOREIGN KEY(contact_id) REFERENCES contacts(id) ON DELETE CASCADE,
-            FOREIGN KEY(group_id) REFERENCES groups_table(id) ON DELETE CASCADE
+            FOREIGN KEY(contact_id)
+                REFERENCES contacts(id)
+                ON DELETE CASCADE,
+            FOREIGN KEY(group_id)
+                REFERENCES groups_table(id)
+                ON DELETE CASCADE
         )
-    `);
+    `, (err) => {
+        if (err) {
+            console.error("Contact-groups table error:", err.message);
+        }
+    });
+
 
     console.log("Database tables ready.");
 });
